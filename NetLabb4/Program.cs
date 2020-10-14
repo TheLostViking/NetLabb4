@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SebastiansDictionary_Library;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SebastiansDictionary_Library;
 
 namespace SebastiansDictionary
 {
@@ -31,17 +27,17 @@ namespace SebastiansDictionary
                 Console.WriteLine(Path.GetFileNameWithoutExtension(i));
             }
 
-            WordList test2 = new WordList("Test2", "Engelska", "Svenska");
-            string[] testWords = { "Car", "bil" };
-            string[] testwords2 = { "Boy", "pojke" };
-            test2.Add(testWords);
-            test2.Add(testwords2);
-            test2.Save();
-            
+            //WordList test2 = new WordList("Test2", "Engelska", "Svenska");
+            //string[] testWords = { "Car", "bil" };
+            //string[] testwords2 = { "Boy", "pojke" };
+            //test2.Add(testWords);
+            //test2.Add(testwords2);
+            //test2.Save();
+
 
             //Switch-statement för argumenten som skrivs in.
 
-            
+
             Console.ReadKey(true);
         }
     }
