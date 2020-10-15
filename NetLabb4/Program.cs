@@ -21,23 +21,11 @@ namespace SebastiansDictionary
             //Hämtar sökvägen för applocal hos användaren. Skapar mapp om den inte finns. 
             AppLocalPath();
 
-            WordList.GetList();
-            foreach (string i in WordList.GetList())
-            {
-                Console.WriteLine(Path.GetFileNameWithoutExtension(i));
-            }
-
-            //WordList test2 = new WordList("Test2", "Engelska", "Svenska");
-            //string[] testWords = { "Car", "bil" };
-            //string[] testwords2 = { "Boy", "pojke" };
-            //test2.Add(testWords);
-            //test2.Add(testwords2);
-            //test2.Save();
-
-
-            //Switch-statement för argumenten som skrivs in.
-
-
+            WordList loadedList = WordList.LoadList("Test2");
+            //För att lägga till ord, en for som sträcker sig längden av languages.
+            //lägg till en array av ord åt gången, inte ett ord i taget. 
+            loadedList.Remove(0, "Car");
+            
             Console.ReadKey(true);
         }
     }
