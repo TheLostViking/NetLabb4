@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 
@@ -102,49 +101,43 @@ namespace SebastiansDictionary_Library
         //translation motsvarar index i Languages. Sök igenom språket och ta bort ordet. 
         public bool Remove(int translation, string word)
         {
-            WordList listToRemoveFrom = LoadList(Name);
-            string[] listOfLanguages = listToRemoveFrom.Languages;
-
-            for (int i = 0; i < listOfLanguages.Length; i++)
+            for (int i = 0; i < words.Count; i++)
             {
-                if (translation == i)
+                if (words[i].Translations.Contains(word))
                 {
-                    foreach (var item in words)
-                    {
-                        foreach (var translations in item.Translations)
-                        {
-                            if (word == translations)
-                            {
-                                words.Remove(item);
-                            }
-                        }
-                        break;
-                    }
+                    words.RemoveAt(i);
                 }
             }
-            listToRemoveFrom.Save();
             return true;
         }
-
-                
         
-    }
+        //Räknar och returnerar alla ord i listan. 
+        public int Count()
+        {
+            int wordsInList = 0;
+            foreach (var word in words)
+            {
+                wordsInList += words.Count;
+            }
+            wordsInList = wordsInList / Languages.Length;
 
+            return wordsInList;
+        }
+     
+         //sortByTranslation = Vilket språk listan sorteras på.
+         //showTranslations = Callback som anropas för varje ord i listan. 
+        /*public void List(int sortByTranslation, Action<string[]> showTranslations)
+        {
+            words.Sort(sortByTranslation);
+
+        }*/
+    }
 }
     /*
-         public int Count()
-         {
-             //Räknar och returnerar alla ord i listan. 
-         }
-         public void List(int sortByTranslation, Action<string[]> showTranslations)
-         {
-             //sortByTranslation = Vilket språk listan sorteras på.
-             //showTranslations = Callback som anropas för varje ord i listan. 
-         }
-         public Word GetWordToPractice()
-         {
-             //Returnerar slumpmässigt Word från listan, med slumpmässigt valda FromLanguage och ToLanguage(dock inte samma).
-         }*/
+     public Word GetWordToPractice()
+     {
+         //Returnerar slumpmässigt Word från listan, med slumpmässigt valda FromLanguage och ToLanguage(dock inte samma).
+     }*/
 
 
 
