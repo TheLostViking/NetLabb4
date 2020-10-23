@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 
 namespace SebastiansDictionary_Library
 {
@@ -123,21 +126,36 @@ namespace SebastiansDictionary_Library
 
             return wordsInList;
         }
-     
-         //sortByTranslation = Vilket språk listan sorteras på.
-         //showTranslations = Callback som anropas för varje ord i listan. 
-        /*public void List(int sortByTranslation, Action<string[]> showTranslations)
-        {
-            words.Sort(sortByTranslation);
 
-        }*/
+        //sortByTranslation = Vilket språk listan sorteras på.
+        //showTranslations = Callback som anropas för varje ord i listan. KLAR!
+        public void List(int sortByTranslation, Action<string[]> showTranslations)
+        {
+            List<Word> wordList = new List<Word>(words.OrderBy(word => word.Translations[sortByTranslation]).ToList());
+           
+            foreach (Word word in wordList)
+            {
+                showTranslations(word.Translations);
+            }
+        }
+
+        //Returnerar slumpmässigt Word från listan, med slumpmässigt valda FromLanguage och ToLanguage(dock inte samma).
+        public Word GetWordToPractice()
+        {
+            Random rnd = new Random();
+            int fromLanguage = rnd.Next(words.Count);
+            int toLanguage = rnd.Next(words.Count);
+       
+            Word wordToPractice = new Word();
+            
+            return wordToPractice;
+        }
+     
     }
+
 }
-    /*
-     public Word GetWordToPractice()
-     {
-         //Returnerar slumpmässigt Word från listan, med slumpmässigt valda FromLanguage och ToLanguage(dock inte samma).
-     }*/
+
+    
 
 
 

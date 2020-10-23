@@ -1,7 +1,7 @@
 ﻿using SebastiansDictionary_Library;
 using System;
-using System.ComponentModel.Design;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace SebastiansDictionary
 {
@@ -22,40 +22,87 @@ namespace SebastiansDictionary
             //Hämtar sökvägen för applocal hos användaren. Skapar mapp om den inte finns. 
             AppLocalPath();
 
-            WordList Test2 = new WordList("SebastiansLista", "Swedish", "English", "French");
-            //loadedList.Remove(0, "Car");
-
-            int number = 5;
-
-            Action<int> numberTrick = (numberInput) =>
+            if (args.Length == 0)
             {
-                while (numberInput < 100)
+                Console.WriteLine($"Use any of the following parameters: \n" +
+                    $"-lists \n" +
+                    $"-new <list name> <language 1> <language 2>... <language n> \n" +
+                    $"-add <list name> \n" +
+                    $"-remove <list name> <language> <word 1> <word 2>... <word n> \n" +
+                    $"-count <list name> \n" +
+                    $"-practice <list name>");
+            }
+            else
+            {
+                switch (args[0])
                 {
-                    numberInput *= 2;
+                    case "-lists":
 
-                    Console.WriteLine($"Your number is right now {numberInput}");
+                        foreach (var item in WordList.GetList())
+                        {
+                            Console.WriteLine(Path.GetFileNameWithoutExtension(item));
+                        }
+                        break;
+
+                    case "-new":
+
+                        break;
+                    case "-add":
+                        WordList.LoadList(args[1]).Add();
+                        break;
+                    case "-remove":
+                        WordList.LoadList(args[1]).Remove(int.Parse(args[2]), args[3]);
+                        break;
+                    case "-words":
+                        WordList listToSort = WordList.LoadList(args[1]);
+                        string language = args[2];
+                        int langIndex = 0;
+
+                        for (int i = 0; i < listToSort.Languages.Length; i++)
+                        {
+                            if (language == listToSort.Languages[i])
+                            {
+                                langIndex = i;
+                                break;
+                            }
+                        }
+
+                        for (int i = 0; i < listToSort.Languages.Length; i++)
+                        {
+                            Console.Write($"{listToSort.Languages[i],-10}");
+                        }
+
+                        Console.WriteLine();
+                        int newColumn = 0;
+                        Action<string[]> sortedWords = (input) =>
+                        {
+                            if (newColumn == listToSort.Languages.Length)
+                            {
+                                Console.WriteLine();
+                                newColumn = 0;
+                            }
+
+                            for (int i = 0; i < input.Length; i++)
+                            {
+                                newColumn++;
+                                Console.Write($"{input[i], -10}");
+                            }
+                        };
+                        listToSort.List(langIndex, sortedWords);
+                        break;
+                    case "-count":
+                        Console.WriteLine(WordList.LoadList(args[1]).Count());
+                        break;
+
+                    case "-practice":
+                        WordList.LoadList(args[1]).GetWordToPractice();
+                        break;
                 }
-            };
+            }
 
-            numberTrick(number);
-
-            //Test2.Add("Bil", "Car", "Auto");
-            //Test2.Add("Pojke", "Boy", "Garcon");
-            //Test2.Add("Flicka", "Girl", "Fille");
-            //Test2.Save();
-            //Test2.Count();
-            // foreach (string word in wordsToRemove)
-            // {
-            //     Test2.Remove(0, word);
-            // }
-            
-            
-
-           // Test2.Save();
-            
             Console.ReadKey(true);
         }
-            //För att lägga till ord, en for som sträcker sig längden av languages.
-            //lägg till en array av ord åt gången, inte ett ord i taget. 
+        // Args 0 = det första argumentet, t.ex "-lists", "-new" osv.
+        //Sen hantera args som den array det är och nyttja de kommande inputsen för att definera exakt vad som händer.
     }
 }
