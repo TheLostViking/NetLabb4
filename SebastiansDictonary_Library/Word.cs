@@ -12,14 +12,17 @@ namespace SebastiansDictionary_Library
         public int FromLanguage { get; }
         public int ToLanguage { get; }
 
+        //initialiserar 'Translations' med data som skickas in som ' translations'.
         public Word(params string[] translations)
         {
-            //initialiserar 'Translations' med data som skickas in som ' translations'.
+            
             Translations = translations;
         }
+
+        //Gör samma som ovan men sätter även FromLanguage och ToLanguage.
         public Word(int fromLanguage, int toLanguange, params string[] translations)
         {
-            //Gör samma som ovan men sätter även FromLanguage och ToLanguage.
+            
             FromLanguage = fromLanguage;
             ToLanguage = toLanguange;
             Translations = translations;
