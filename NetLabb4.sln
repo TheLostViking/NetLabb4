@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SebastiansDictionary", "Net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SebastiansDictionary_Library", "SebastiansDictonary_Library\SebastiansDictionary_Library.csproj", "{6B4436C4-6F87-4752-8B06-BBCB05115BA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{A688185E-0B2B-437B-B63F-981C24900FC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{6B4436C4-6F87-4752-8B06-BBCB05115BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B4436C4-6F87-4752-8B06-BBCB05115BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B4436C4-6F87-4752-8B06-BBCB05115BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A688185E-0B2B-437B-B63F-981C24900FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A688185E-0B2B-437B-B63F-981C24900FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A688185E-0B2B-437B-B63F-981C24900FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A688185E-0B2B-437B-B63F-981C24900FC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
