@@ -131,8 +131,13 @@ namespace SebastiansDictionary_Library
         //showTranslations = Callback som anropas för varje ord i listan. 
         public void List(int sortByTranslation, Action<string[]> showTranslations)
         {
-            List<Word> wordlist = new List<Word>();
-                
+            List<Word> sortedWords =  words.OrderBy(word => word.Translations[sortByTranslation]).ToList();
+
+                foreach (Word word in sortedWords)
+                {
+                    showTranslations(word.Translations);
+                }
+             
         }
         //Returnerar slumpmässigt Word från listan, med slumpmässigt valda FromLanguage och ToLanguage(dock inte samma). //KLAR!
         public Word GetWordToPractice()
