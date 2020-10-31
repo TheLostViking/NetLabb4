@@ -17,6 +17,83 @@ namespace SebastiansDictionary
             }
             return appPath;
         }
+        private static string FirstToUpper(string text)
+        {
+            return text.Substring(0, 1).ToUpper() + text.Substring(1);
+        }
+
+        private static void NewList(string[] args)
+        {
+            List<string> langList = new List<string>();
+            for (int i = 2; i < args.Length; i++)
+            {
+                langList.Add(args[i]);
+            }
+            string[] languages = langList.ToArray();
+
+            WordList newList = new WordList(args[1], languages);
+            newList.Save();
+            AddWords(args);
+        }
+        private static void AddWords(string[] args)
+        {
+            Console.WriteLine("Press enter with an empty line to exit!");
+            WordList addWords = WordList.LoadList(args[1]);
+
+            int numberOfWordsAdded = 0;
+            string userInput = "";
+            List<string> listOfWords = new List<string>();
+            bool t = true;
+            while (t == true)
+            {
+                for (int i = 0; i < addWords.Languages.Length; i++)
+
+                {
+                    if (i == 0)
+                    {
+                        Console.Write($"Enter a word ({FirstToUpper(addWords.Languages[i])}): ");
+                        userInput = Console.ReadLine();
+                        if (userInput == "")
+                        {
+                            t = false;
+                            break;
+                        }
+                        listOfWords.Add(userInput);
+
+                    }
+                    else if (i > 0)
+                    {
+                        Console.Write($"Enter the ({FirstToUpper(addWords.Languages[i])}) translation: ");
+                        userInput = Console.ReadLine();
+                        if (userInput == "")
+                        {
+                            t = false;
+                            break;
+                        }
+                        listOfWords.Add(userInput);
+                    }
+                }
+                if (t == false)
+                {
+                    break;
+                }
+                else
+                {
+                    numberOfWordsAdded++;
+                    string[] addedWords = listOfWords.ToArray();
+                    listOfWords.Clear();
+                    addWords.Add(addedWords);
+                    addWords.Save();
+                }
+            }
+            if (numberOfWordsAdded == 1)
+            {
+                Console.WriteLine($"{numberOfWordsAdded} word was added to the list!");
+            }
+            else
+                Console.WriteLine($"{numberOfWordsAdded} words was added to the list!");
+
+        }
         static void Main(string[] args)
         {
             //Hämtar sökvägen för applocal hos användaren. Skapar mapp om den inte finns. 
@@ -31,7 +108,9 @@ namespace SebastiansDictionary
                     $"-words < listname > < sortByLanguage >\n" +
                     $"-count < listname >\n" +
                     $"-practice < listname >");
+                return;
             }
+            
             switch (args[0])
             {
                 case "-lists":
@@ -43,73 +122,13 @@ namespace SebastiansDictionary
                     break;
 
                 case "-new":
-                    List<string> langList = new List<string>();
-                    for (int i = 2; i < args.Length; i++)
-                    {
-                        langList.Add(args[i]);
-                    }
-                    string[] languages = langList.ToArray();
 
-                    WordList newList = new WordList(args[1], languages);
-                    newList.Save();
+                    NewList(args);
                     break;
 
                 case "-add":
-                    Console.WriteLine("Press enter with an empty line to exit!");
-                    WordList addWords = WordList.LoadList(args[1]);
 
-                    int numberOfWordsAdded = 0;
-                    string userInput = "";
-                    List<string> listOfWords = new List<string>();
-                    bool t = true;
-                    while (t == true)
-                    {
-                        for (int i = 0; i < addWords.Languages.Length; i++)
-
-                        {
-                            if (i == 0)
-                            {
-                                Console.Write($"Enter a word ({addWords.Languages[i].ToUpper()}): ");
-                                userInput = Console.ReadLine();
-                                if (userInput == "")
-                                {
-                                    t = false;
-                                    break;
-                                }
-                                listOfWords.Add(userInput);
-
-                            }
-                            else if (i > 0)
-                            {
-                                Console.Write($"Enter the {addWords.Languages[i].ToUpper()} translation: ");
-                                userInput = Console.ReadLine();
-                                if (userInput == "")
-                                {
-                                    t = false;
-                                    break;
-                                }
-                                listOfWords.Add(userInput);
-                            }
-                        }
-                        if (t == false)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            numberOfWordsAdded++;
-                            string[] addedWords = listOfWords.ToArray();
-                            listOfWords.Clear();
-                            addWords.Add(addedWords);
-                            addWords.Save();
-                        }
-                    }
-                    if (numberOfWordsAdded == 1)
-                    {
-                        Console.WriteLine($"{numberOfWordsAdded} word was added to the list!");
-                    }
-                    else
-                        Console.WriteLine($"{numberOfWordsAdded} words was added to the list!");
+                    AddWords(args);
                     break;
 
                 case "-remove":
@@ -155,7 +174,7 @@ namespace SebastiansDictionary
 
                         for (int i = 0; i < listToSort.Languages.Length; i++)
                         {
-                            if (language == listToSort.Languages[i])
+                            if (language.ToLower() == listToSort.Languages[i])
                             {
                                 languageIndex = i;
                                 break;
@@ -194,10 +213,41 @@ namespace SebastiansDictionary
                     break;
 
                 case "-practice":
-                    WordList.LoadList(args[1]).GetWordToPractice();
+                    WordList practiceList = WordList.LoadList(args[1]);
+
+                    int totalAnswers = 0;
+                    int correctAnswers = 0;
+                    string userInput = "";
+
+                    do
+                    {
+                        Word word = practiceList.GetWordToPractice();
+                        Console.WriteLine($"Translate the {FirstToUpper(practiceList.Languages[word.FromLanguage])}" +
+                            $" word {FirstToUpper(word.Translations[word.FromLanguage])}" +
+                            $" to {FirstToUpper(practiceList.Languages[word.ToLanguage])}: ");
+                        userInput = Console.ReadLine().ToLower();
+
+                        if (userInput == word.Translations[word.ToLanguage])
+                        {
+                            Console.WriteLine("Correct!");
+                            totalAnswers++;
+                            correctAnswers++;
+                        }
+                        else if (userInput == "")
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("That's the wrong answer!");
+                            totalAnswers++;
+                        }
+
+                    } while (userInput != "");
+
+                    Console.WriteLine($"You got {correctAnswers} correct answers out of {totalAnswers}");
                     break;
             }
-
 
             Console.ReadKey(true);
         }

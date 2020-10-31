@@ -76,7 +76,7 @@ namespace SebastiansDictionary_Library
                 {
                     foreach (var language in Languages)
                     {
-                        sw.Write(language + ";");
+                        sw.Write(language.ToLower() + ";");
                     }
                     sw.WriteLine();
                 }
@@ -87,7 +87,7 @@ namespace SebastiansDictionary_Library
                 {
                     foreach (var translations in words.Translations)
                     {
-                        sw.Write(translations + ";");
+                        sw.Write(translations.ToLower() + ";");
                     }
                     sw.WriteLine();
                 }
@@ -120,10 +120,9 @@ namespace SebastiansDictionary_Library
             int wordsInList = 0;
             foreach (var word in words)
             {
-                wordsInList += words.Count;
+                wordsInList++;
             }
-            wordsInList = wordsInList / Languages.Length;
-
+           
             return wordsInList;
         }
 
