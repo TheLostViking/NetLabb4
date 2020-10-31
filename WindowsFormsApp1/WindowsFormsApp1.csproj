@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SebastiansDictonary_Library\SebastiansDictionary_Library.csproj">
+      <Project>{6b4436c4-6f87-4752-8b06-bbcb05115ba5}</Project>
+      <Name>SebastiansDictionary_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

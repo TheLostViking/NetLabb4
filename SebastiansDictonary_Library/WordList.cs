@@ -33,11 +33,11 @@ namespace SebastiansDictionary_Library
         //Returnerar array med namn på alla listor som finns lagrade (utan filändelser). //KLAR!
         public static string[] GetList()
         {
-            string[] AllLists = Directory.GetFiles(filePath);
-            return AllLists;
+            string[] allLists = Directory.GetFiles(filePath);
+            return allLists;
         }
 
-        //EJ KLAR?? Laddar in ordlistan (name anges utan filändelse) och returnerar som WordList.
+        //KLAR! Laddar in ordlistan (name anges utan filändelse) och returnerar som WordList.
         public static WordList LoadList(string name)
         {
             string[] loadListLanguage;
@@ -146,15 +146,16 @@ namespace SebastiansDictionary_Library
 
             int fromLanguage = rnd.Next(0, Languages.Length);
             int toLanguage = rnd.Next(0, Languages.Length);
+
+            int randomWord = rnd.Next(words.Count);
+            Word word = words[randomWord];
+
             while (fromLanguage == toLanguage)
             {
                 toLanguage = rnd.Next(0, Languages.Length);
             }
-
-            string[] translations = { words[fromLanguage].Translations[fromLanguage], words[fromLanguage].Translations[toLanguage] };
-                
-
-            Word wordToPractice = new Word(fromLanguage, toLanguage, translations);
+                          
+            Word wordToPractice = new Word(fromLanguage, toLanguage, word.Translations);
             return wordToPractice;
         }
     }

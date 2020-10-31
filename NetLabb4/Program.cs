@@ -1,5 +1,6 @@
 ﻿using SebastiansDictionary_Library;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SebastiansDictionary
@@ -15,10 +16,6 @@ namespace SebastiansDictionary
                 Directory.CreateDirectory(appPath);
             }
             return appPath;
-        }
-        private static void GenericDelegates(int someNumber, Action<string> someText)
-        {
-            Console.WriteLine("Varför har du ingen biff!?");
         }
         static void Main(string[] args)
         {
@@ -46,17 +43,100 @@ namespace SebastiansDictionary
                     break;
 
                 case "-new":
-                    WordList newList = new WordList();
+                    List<string> langList = new List<string>();
+                    for (int i = 2; i < args.Length; i++)
+                    {
+                        langList.Add(args[i]);
+                    }
+                    string[] languages = langList.ToArray();
+
+                    WordList newList = new WordList(args[1], languages);
                     newList.Save();
-                    newList.Add();
                     break;
 
                 case "-add":
+                    Console.WriteLine("Press enter with an empty line to exit!");
+                    WordList addWords = WordList.LoadList(args[1]);
+
+                    int numberOfWordsAdded = 0;
+                    string userInput = "";
+                    List<string> listOfWords = new List<string>();
+                    bool t = true;
+                    while (t == true)
+                    {
+                        for (int i = 0; i < addWords.Languages.Length; i++)
+
+                        {
+                            if (i == 0)
+                            {
+                                Console.Write($"Enter a word ({addWords.Languages[i].ToUpper()}): ");
+                                userInput = Console.ReadLine();
+                                if (userInput == "")
+                                {
+                                    t = false;
+                                    break;
+                                }
+                                listOfWords.Add(userInput);
+
+                            }
+                            else if (i > 0)
+                            {
+                                Console.Write($"Enter the {addWords.Languages[i].ToUpper()} translation: ");
+                                userInput = Console.ReadLine();
+                                if (userInput == "")
+                                {
+                                    t = false;
+                                    break;
+                                }
+                                listOfWords.Add(userInput);
+                            }
+                        }
+                        if (t == false)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            numberOfWordsAdded++;
+                            string[] addedWords = listOfWords.ToArray();
+                            listOfWords.Clear();
+                            addWords.Add(addedWords);
+                            addWords.Save();
+                        }
+                    }
+                    if (numberOfWordsAdded == 1)
+                    {
+                        Console.WriteLine($"{numberOfWordsAdded} word was added to the list!");
+                    }
+                    else
+                        Console.WriteLine($"{numberOfWordsAdded} words was added to the list!");
                     break;
 
                 case "-remove":
-                    WordList.LoadList(args[1]);
-                    
+                    WordList removeWords = WordList.LoadList(args[1]);
+                    int translation = 0;
+                    for (int i = 0; i < removeWords.Languages.Length; i++)
+                    {
+                        if (args[2] == removeWords.Languages[i])
+                        {
+                            translation = i;
+                        }
+                    }
+
+                    List<string> removeList = new List<string>();
+                    for (int i = 3; i < args.Length; i++)
+                    {
+                        removeList.Add(args[i]);
+                    }
+                    string[] wordsToRemove = removeList.ToArray();
+
+                    foreach (var item in wordsToRemove)
+                    {
+                        removeWords.Remove(translation, item);
+                    }
+
+                    removeWords.Save();
+                    Console.WriteLine($"{wordsToRemove.Length} words were removed from the list!");
                     break;
 
                 case "-words":
@@ -110,7 +190,7 @@ namespace SebastiansDictionary
                     break;
 
                 case "-count":
-                    WordList.LoadList(args[1]).Count();
+                    Console.WriteLine($"There are {WordList.LoadList(args[1]).Count()} words in this list!");
                     break;
 
                 case "-practice":
