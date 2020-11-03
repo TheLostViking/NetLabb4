@@ -7,7 +7,7 @@ namespace SebastiansDictionary
 {
     class Program
     {
-        private static string AppLocalPath()
+        private static string AppLocalPath() //Gets the path for LocalApp-directory, creates the directory if it doesn't exists. - DONE!
         {
             string appLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string appPath = Path.Combine(appLocalPath, "SebastiansDictionary");
@@ -17,12 +17,12 @@ namespace SebastiansDictionary
             }
             return appPath;
         }
-        private static string FirstToUpper(string text)
+        private static string FirstToUpper(string text) //Capitilizes the first letter in words.  - DONE!
         {
             return text.Substring(0, 1).ToUpper() + text.Substring(1);
         }
 
-        private static void NewList(string[] args)
+        private static void NewList(string[] args) //Method for creating new lists - DONE!
         {
             List<string> langList = new List<string>();
             for (int i = 2; i < args.Length; i++)
@@ -35,7 +35,7 @@ namespace SebastiansDictionary
             newList.Save();
             AddWords(args);
         }
-        private static void AddWords(string[] args)
+        private static void AddWords(string[] args) //Method for adding words to lists - DONE!
         {
             Console.WriteLine("Press enter with an empty line to exit!");
             WordList addWords = WordList.LoadList(args[1]);
@@ -96,7 +96,7 @@ namespace SebastiansDictionary
         }
         static void Main(string[] args)
         {
-            //Hämtar sökvägen för applocal hos användaren. Skapar mapp om den inte finns. 
+            
             AppLocalPath();
             if (args.Length == 0)
             {
@@ -113,7 +113,7 @@ namespace SebastiansDictionary
             
             switch (args[0])
             {
-                case "-lists":
+                case "-lists": //Command for getting all the lists in given directory - DONE!
                     WordList.GetList();
                     foreach (var item in WordList.GetList())
                     {
@@ -121,17 +121,17 @@ namespace SebastiansDictionary
                     }
                     break;
 
-                case "-new":
+                case "-new": //Command for creating a new list - DONE!
 
                     NewList(args);
                     break;
 
-                case "-add":
+                case "-add": //Command for adding words to lists - DONE!
 
                     AddWords(args);
                     break;
 
-                case "-remove":
+                case "-remove": //Command for removing words from lists - DONE!
                     WordList removeWords = WordList.LoadList(args[1]);
                     int translation = 0;
                     for (int i = 0; i < removeWords.Languages.Length; i++)
@@ -158,7 +158,7 @@ namespace SebastiansDictionary
                     Console.WriteLine($"{wordsToRemove.Length} words were removed from the list!");
                     break;
 
-                case "-words":
+                case "-words": //Command for sorting the list after given language - DONE!
                     {
                         WordList listToSort = WordList.LoadList(args[1]);
                         string language = "";
@@ -208,11 +208,11 @@ namespace SebastiansDictionary
                     }
                     break;
 
-                case "-count":
+                case "-count": //Command for counting all the words in given list - DONE!
                     Console.WriteLine($"There are {WordList.LoadList(args[1]).Count()} words in this list!");
                     break;
 
-                case "-practice":
+                case "-practice": //Command for practicing on words in the list - DONE!
                     WordList practiceList = WordList.LoadList(args[1]);
 
                     int totalAnswers = 0;
@@ -248,7 +248,6 @@ namespace SebastiansDictionary
                     Console.WriteLine($"You got {correctAnswers} correct answers out of {totalAnswers}");
                     break;
             }
-
             Console.ReadKey(true);
         }
     }
