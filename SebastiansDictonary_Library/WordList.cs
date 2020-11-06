@@ -87,7 +87,7 @@ namespace SebastiansDictionary_Library
                 {
                     foreach (var translations in words.Translations)
                     {
-                        sw.Write(translations.ToLower() + ";");
+                        sw.Write(translations?.ToLower() + ";");
                     }
                     sw.WriteLine();
                 }
@@ -122,7 +122,6 @@ namespace SebastiansDictionary_Library
             {
                 wordsInList++;
             }
-           
             return wordsInList;
         }
 

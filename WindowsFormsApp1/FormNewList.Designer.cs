@@ -42,12 +42,13 @@
             this.label1.Location = new System.Drawing.Point(5, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Enter list name";
             // 
             // button1_SaveNewList
             // 
-            this.button1_SaveNewList.Location = new System.Drawing.Point(87, 358);
+            this.button1_SaveNewList.Enabled = false;
+            this.button1_SaveNewList.Location = new System.Drawing.Point(87, 255);
             this.button1_SaveNewList.Name = "button1_SaveNewList";
             this.button1_SaveNewList.Size = new System.Drawing.Size(75, 23);
             this.button1_SaveNewList.TabIndex = 2;
@@ -57,7 +58,7 @@
             // 
             // button2_CancelNewList
             // 
-            this.button2_CancelNewList.Location = new System.Drawing.Point(177, 358);
+            this.button2_CancelNewList.Location = new System.Drawing.Point(168, 255);
             this.button2_CancelNewList.Name = "button2_CancelNewList";
             this.button2_CancelNewList.Size = new System.Drawing.Size(75, 23);
             this.button2_CancelNewList.TabIndex = 3;
@@ -73,8 +74,10 @@
             this.textBox2_Languages.Location = new System.Drawing.Point(87, 97);
             this.textBox2_Languages.Multiline = true;
             this.textBox2_Languages.Name = "textBox2_Languages";
-            this.textBox2_Languages.Size = new System.Drawing.Size(165, 255);
+            this.textBox2_Languages.Size = new System.Drawing.Size(157, 152);
             this.textBox2_Languages.TabIndex = 1;
+            this.textBox2_Languages.Text = "Enter at least two different languages.";
+            this.textBox2_Languages.TextChanged += new System.EventHandler(this.textBox2_Languages_TextChanged);
             // 
             // label2
             // 
@@ -89,21 +92,25 @@
             // 
             this.textBox1_ListName.Location = new System.Drawing.Point(87, 46);
             this.textBox1_ListName.Name = "textBox1_ListName";
-            this.textBox1_ListName.Size = new System.Drawing.Size(165, 20);
+            this.textBox1_ListName.Size = new System.Drawing.Size(142, 20);
             this.textBox1_ListName.TabIndex = 0;
+            this.textBox1_ListName.Text = "Please enter title of your list.";
             // 
             // FormNewList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkOrange;
-            this.ClientSize = new System.Drawing.Size(307, 393);
+            this.ClientSize = new System.Drawing.Size(299, 361);
             this.Controls.Add(this.textBox1_ListName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2_Languages);
             this.Controls.Add(this.button2_CancelNewList);
             this.Controls.Add(this.button1_SaveNewList);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximumSize = new System.Drawing.Size(315, 400);
+            this.MinimumSize = new System.Drawing.Size(315, 400);
             this.Name = "FormNewList";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
