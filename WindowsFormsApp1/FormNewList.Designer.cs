@@ -95,6 +95,7 @@
             this.textBox1_ListName.Size = new System.Drawing.Size(142, 20);
             this.textBox1_ListName.TabIndex = 0;
             this.textBox1_ListName.Text = "Please enter title of your list.";
+            this.textBox1_ListName.TextChanged += new System.EventHandler(this.textBox1_ListName_TextChanged);
             // 
             // FormNewList
             // 

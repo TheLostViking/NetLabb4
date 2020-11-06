@@ -50,11 +50,7 @@ namespace WindowsFormsApp1
 
             WordList newList = new WordList(textBox1_ListName.Text, languages);
 
-            if (IsAllLettersOrDigits(textBox1_ListName.Text) == false)
-            {
-                MessageBox.Show("Title can't have any Special Characters!");
-            }
-            else if (textBox1_ListName.Text == null || textBox1_ListName.Text == "")
+            if (textBox1_ListName.Text == null || textBox1_ListName.Text == "")
             {
                 MessageBox.Show("Please enter a title!");
             }
@@ -78,6 +74,14 @@ namespace WindowsFormsApp1
             }
             else
                 button1_SaveNewList.Enabled = true;
+        }
+
+        private void textBox1_ListName_TextChanged(object sender, EventArgs e)
+        {
+            if (IsAllLettersOrDigits(textBox1_ListName.Text) == false)
+            {
+                MessageBox.Show("Title can't have any Special Characters!");
+            }            
         }
     }
 

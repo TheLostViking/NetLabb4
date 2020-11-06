@@ -48,6 +48,11 @@ namespace SebastiansDictionary
 
         private static void NewList(string[] args) //Method for creating new lists - DONE!
         {
+            if (args.Length <= 1)
+            {
+                Console.WriteLine("Plese enter a listname!");
+                return;
+            }
             List<string> langList = new List<string>();
             
             for (int i = 2; i < args.Length; i++)
@@ -81,7 +86,12 @@ namespace SebastiansDictionary
         }
         private static void AddWords(string[] args) //Method for adding words to lists - DONE!
         {
-            if (!File.Exists(filePath + args[1] + ".dat"))
+            if(args.Length <= 1)
+            {
+                Console.WriteLine("Plese enter a listname!");
+                return;
+            }
+            else if (!File.Exists(filePath + args[1] + ".dat"))
             {
                 Console.WriteLine("There's no such file!");
             }
@@ -182,7 +192,13 @@ namespace SebastiansDictionary
                     break;
 
                 case "-remove": //Command for removing words from lists - DONE!
-                    if (!File.Exists(filePath + args[1] + ".dat"))
+
+                    if (args.Length <= 1)
+                    {
+                        Console.WriteLine("Plese enter a listname!");
+                        return;
+                    }
+                    else if (!File.Exists(filePath + args[1] + ".dat"))
                     {
                         Console.WriteLine("There's no such file!");
                     }
@@ -217,7 +233,13 @@ namespace SebastiansDictionary
 
                 case "-words": //Command for sorting the list after given language - DONE!
                     {
-                        if (!File.Exists(filePath + args[1] + ".dat"))
+                        if (args.Length <= 1)
+                        {
+                            Console.WriteLine("Plese enter a listname!");
+                            return;
+                        }
+
+                        else if (!File.Exists(filePath + args[1] + ".dat"))
                         {
                             Console.WriteLine("There's no such file!");
                         }
@@ -275,7 +297,13 @@ namespace SebastiansDictionary
                     break;
 
                 case "-count": //Command for counting all the words in given list - DONE!
-                    if (!File.Exists(filePath + args[1] + ".dat"))
+
+                    if (args.Length <= 1)
+                    {
+                        Console.WriteLine("Plese enter a listname!");
+                        return;
+                    }
+                    else if (!File.Exists(filePath + args[1] + ".dat"))
                     {
                         Console.WriteLine("There's no such file!");
                     }
@@ -287,7 +315,12 @@ namespace SebastiansDictionary
 
 
                 case "-practice": //Command for practicing on words in the list - DONE!
-                    if (!File.Exists(filePath + args[1] + ".dat"))
+                    if (args.Length <= 1)
+                    {
+                        Console.WriteLine("Plese enter a listname!");
+                        return;
+                    }
+                    else if (!File.Exists(filePath + args[1] + ".dat"))
                     {
                         Console.WriteLine("There's no such file!");
                     }
@@ -335,7 +368,6 @@ namespace SebastiansDictionary
                     break;
             }
             Console.ReadKey(true);
-
         }
     }
 }
