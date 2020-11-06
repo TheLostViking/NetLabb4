@@ -29,7 +29,6 @@ namespace SebastiansDictionary
             }
             return true;
         }
-
         public static bool IsAllLetters(string s)
         {
             foreach (char c in s)
@@ -39,13 +38,10 @@ namespace SebastiansDictionary
             }
             return true;
         }
-        
-
         private static string FirstToUpper(string text) //Capitilizes the first letter in words.  - DONE!
         {
             return text.Substring(0, 1).ToUpper() + text.Substring(1);
         }
-
         private static void NewList(string[] args) //Method for creating new lists - DONE!
         {
             if (args.Length <= 1)
@@ -312,7 +308,6 @@ namespace SebastiansDictionary
                         Console.WriteLine($"There are {WordList.LoadList(args[1]).Count()} words in this list!");
                     }
                     break;
-
 
                 case "-practice": //Command for practicing on words in the list - DONE!
                     if (args.Length <= 1)
