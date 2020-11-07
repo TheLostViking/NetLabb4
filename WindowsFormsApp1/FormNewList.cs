@@ -63,12 +63,8 @@ namespace WindowsFormsApp1
 
         //Enables the Save-button when text changes in the textbox - DONE!
         private void textBox2_Languages_TextChanged(object sender, EventArgs e)
-        {
-            if (IsAllLetters(textBox2_Languages.Text) == false)
-            {
-                MessageBox.Show("Only letters in anguages");
-            }
-            else if (textBox2_Languages.Lines.Length < 2 || textBox2_Languages.Text == "")
+        {          
+            if (textBox2_Languages.Lines.Length < 2 || textBox2_Languages.Text == "")
             {
                 button1_SaveNewList.Enabled = false;
             }
